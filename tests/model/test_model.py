@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-
+import os
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from challenge.model import DelayModel
@@ -24,11 +24,14 @@ class TestModel(unittest.TestCase):
         "delay"
     ]
 
-
     def setUp(self) -> None:
         super().setUp()
         self.model = DelayModel()
-        self.data = pd.read_csv(filepath_or_buffer="../data/data.csv")
+        current_dir = os.path.dirname(__file__)
+        project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
+        data_path = os.path.join(project_root, "data", "data.csv")
+
+        self.data = pd.read_csv(data_path)
         
 
     def test_model_preprocess_for_training(
