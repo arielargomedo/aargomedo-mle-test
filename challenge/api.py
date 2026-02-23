@@ -41,7 +41,7 @@ def predict(request: PredictionRequest):
         if flight.OPERA not in VALID_OPERA:
             raise HTTPException(status_code=400, detail="Invalid OPERA")
 
-    data = pd.DataFrame([f.model_dump() for f in request.flights])
+    data = pd.DataFrame([f.dict() for f in request.flights])
     features = model.preprocess(data)
     predictions = model.predict(features)
 
